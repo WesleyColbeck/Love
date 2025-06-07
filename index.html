@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Feliz Nosso Dia</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+
+    body {
+      background-color: black;
+      color: white;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      color: #C71585;
+      font-size: 3rem;
+      font-family: 'Dancing Script', cursive;
+      text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;
+      margin: 20px 0;
+    }
+
+    .carousel {
+      position: relative;
+      width: 90%;
+      max-width: 960px;
+      margin: 20px auto;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    .carousel-container {
+      display: flex;
+      transition: transform 1.5s ease-in-out;
+    }
+
+    .carousel img {
+      width: 360px;
+      height: 540px;
+      margin: 35px;
+      border: 2px solid white;
+      border-radius: 10px;
+      flex-shrink: 0;
+      object-fit: cover;
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      font-size: 2.5rem;
+      cursor: pointer;
+      color: white;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 8px 12px;
+      border-radius: 50%;
+      z-index: 2;
+      user-select: none;
+      transition: background 0.3s;
+    }
+
+    .arrow:hover {
+      background: rgba(199, 21, 133, 0.8);
+    }
+
+    .left {
+      left: 10px;
+    }
+
+    .right {
+      right: 10px;
+    }
+
+    audio {
+      margin-top: 20px;
+    }
+
+    .special-message {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2rem;
+      color: #FFB6C1;
+      margin: 30px 15px;
+    }
+
+    .counter {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      font-size: 1.5rem;
+      margin-top: 20px;
+      font-family: 'Dancing Script', cursive;
+      flex-wrap: wrap;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Responsivo para celulares */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.2rem;
+        margin: 15px 0;
+      }
+      .carousel img {
+        width: 280px;
+        height: 420px;
+        margin: 10px;
+      }
+      .counter {
+        gap: 30px;
+        font-size: 1.2rem;
+      }
+      .special-message {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Feliz Nosso Dia</h1>
+
+  <div class="carousel">
+    <button class="arrow left" onclick="moveCarousel(-1)">&#10094;</button>
+    <div class="carousel-container" id="carousel">
+      <img src="https://i.ibb.co/1tjS8sL3/IMG-20250605-WA0010.jpg" alt="Foto 1" />
+      <img src="https://i.ibb.co/4w7ssdvk/IMG-20250605-WA0011.jpg" alt="Foto 2" />
+      <img src="https://i.ibb.co/V0f5WGds/IMG-20250605-WA0017.jpg" alt="Foto 3" />
+      <img src="https://i.ibb.co/MDRYFM9j/IMG-20250605-WA0014.jpg" alt="Foto 4" />
+      <img src="https://i.ibb.co/d0V6fM0M/IMG-20250605-WA0016.jpg" alt="Foto 5" />
+      <img src="https://i.ibb.co/Q3gY5QKV/IMG-20250605-WA0015.jpg" alt="Foto 6" />
+      <img src="https://i.ibb.co/jkn8MPLY/IMG-20250605-WA0013.jpg" alt="Foto 7" />
+      <img src="https://i.ibb.co/9mpysj1p/IMG-20250605-WA0012.jpg" alt="Foto 8" />
+    </div>
+    <button class="arrow right" onclick="moveCarousel(1)">&#10095;</button>
+  </div>
+
+  <!-- PLAYER DE MÚSICA DIRETO NO SITE -->
+  <audio controls autoplay loop>
+    <source src="https://raw.githubusercontent.com/WesleyColbeck/romantico/main/Lied%20To.mp3" type="audio/mpeg">
+    Seu navegador não suporta áudio embutido.
+  </audio>
+
+  <!-- MENSAGEM ESPECIAL -->
+  <div class="special-message">
+    Que cada momento com você continue sendo o melhor capítulo da nossa história. <br />
+    Eu te amo! 💖
+  </div>
+
+  <!-- CONTADOR -->
+  <div class="counter">
+    <div class="column">
+      <span id="years"></span> anos
+      <span id="months"></span> meses
+      <span id="days"></span> dias
+    </div>
+    <div class="column">
+      <span id="hours"></span> horas
+      <span id="minutes"></span> minutos
+      <span id="seconds"></span> segundos
+    </div>
+  </div>
+
+  <script>
+    let index = 0;
+    function moveCarousel(step) {
+      const carousel = document.getElementById("carousel");
+      const images = document.querySelectorAll(".carousel img");
+      index = (index + step + images.length) % images.length;
+      carousel.style.transform = `translateX(-${index * 430}px)`; // Ajustado para largura + margem
+    }
+
+    // Rotação automática a cada 5 segundos
+    setInterval(() => moveCarousel(1), 5000);
+
+    function updateCounter() {
+      const startDate = new Date("2023-11-25T00:00:00");
+      const now = new Date();
+
+      let years = now.getFullYear() - startDate.getFullYear();
+      let months = now.getMonth() - startDate.getMonth();
+      let days = now.getDate() - startDate.getDate();
+
+      if (days < 0) {
+        months--;
+        const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+        days += prevMonth.getDate();
+      }
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
+
+      document.getElementById("years").innerText = years;
+      document.getElementById("months").innerText = months;
+      document.getElementById("days").innerText = days;
+      document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+      document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+      document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+    }
+    setInterval(updateCounter, 1000);
+    updateCounter();
+  </script>
+</body>
+</html>
