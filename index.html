@@ -1,217 +1,208 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Feliz Nosso Dia</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+<meta charset="UTF-8">
+<title>Presente Especial</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    body {
-      background-color: black;
-      color: white;
-      text-align: center;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
 
-    h1 {
-      color: #C71585;
-      font-size: 3rem;
-      font-family: 'Dancing Script', cursive;
-      text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;
-      margin: 20px 0;
-    }
+body{
+    background:#121212;
+    color:#fff;
+}
 
-    .carousel {
-      position: relative;
-      width: 90%;
-      max-width: 960px;
-      margin: 20px auto;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-    }
+/* TELAS */
+.screen{
+    min-height:100vh;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
 
-    .carousel-container {
-      display: flex;
-      transition: transform 1.5s ease-in-out;
-    }
+.screen.active{
+    display:flex;
+}
 
-    .carousel img {
-      width: 360px;
-      height: 540px;
-      margin: 35px;
-      border: 2px solid white;
-      border-radius: 10px;
-      flex-shrink: 0;
-      object-fit: cover;
-    }
+/* CARD */
+.card{
+    background:#181818;
+    border-radius:20px;
+    padding:30px;
+    max-width:420px;
+    width:100%;
+    text-align:center;
+}
 
-    .arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      border: none;
-      font-size: 2.5rem;
-      cursor: pointer;
-      color: white;
-      background: rgba(0, 0, 0, 0.3);
-      padding: 8px 12px;
-      border-radius: 50%;
-      z-index: 2;
-      user-select: none;
-      transition: background 0.3s;
-    }
+h1{
+    font-size:1.8rem;
+    margin-bottom:15px;
+}
 
-    .arrow:hover {
-      background: rgba(199, 21, 133, 0.8);
-    }
+p{
+    opacity:.85;
+    margin-bottom:25px;
+}
 
-    .left {
-      left: 10px;
-    }
+.green{
+    color:#1db954;
+}
 
-    .right {
-      right: 10px;
-    }
+.btn{
+    background:#1db954;
+    color:#000;
+    border:none;
+    padding:14px 30px;
+    border-radius:30px;
+    font-weight:bold;
+    cursor:pointer;
+    font-size:1rem;
+}
 
-    audio {
-      margin-top: 20px;
-    }
+/* CONTEÚDO */
+.content{
+    max-width:480px;
+    margin:auto;
+    width:100%;
+}
 
-    .special-message {
-      font-family: 'Dancing Script', cursive;
-      font-size: 2rem;
-      color: #FFB6C1;
-      margin: 30px 15px;
-    }
+.block{
+    background:#181818;
+    border-radius:20px;
+    margin-bottom:20px;
+    overflow:hidden;
+}
 
-    .counter {
-      display: flex;
-      justify-content: center;
-      gap: 60px;
-      font-size: 1.5rem;
-      margin-top: 20px;
-      font-family: 'Dancing Script', cursive;
-      flex-wrap: wrap;
-    }
+.block img{
+    width:100%;
+    display:block;
+}
 
-    .column {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+.block .text{
+    padding:20px;
+}
 
-    /* Responsivo para celulares */
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 2.2rem;
-        margin: 15px 0;
-      }
-      .carousel img {
-        width: 280px;
-        height: 420px;
-        margin: 10px;
-      }
-      .counter {
-        gap: 30px;
-        font-size: 1.2rem;
-      }
-      .special-message {
-        font-size: 1.5rem;
-      }
-    }
-  </style>
+/* CONTADOR */
+.counter{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    text-align:center;
+}
+
+.counter div{
+    background:#202020;
+    padding:15px;
+    border-radius:12px;
+}
+
+.counter strong{
+    font-size:1.5rem;
+    display:block;
+}
+
+/* BOTÃO BRANCO */
+.btn-white{
+    background:#fff;
+    color:#000;
+    border:none;
+    padding:12px 25px;
+    border-radius:25px;
+    font-weight:bold;
+}
+</style>
 </head>
+
 <body>
-  <h1>Feliz Nosso Dia</h1>
 
-  <div class="carousel">
-    <button class="arrow left" onclick="moveCarousel(-1)">&#10094;</button>
-    <div class="carousel-container" id="carousel">
-      <img src="https://i.ibb.co/1tjS8sL3/IMG-20250605-WA0010.jpg" alt="Foto 1" />
-      <img src="https://i.ibb.co/4w7ssdvk/IMG-20250605-WA0011.jpg" alt="Foto 2" />
-      <img src="https://i.ibb.co/V0f5WGds/IMG-20250605-WA0017.jpg" alt="Foto 3" />
-      <img src="https://i.ibb.co/MDRYFM9j/IMG-20250605-WA0014.jpg" alt="Foto 4" />
-      <img src="https://i.ibb.co/d0V6fM0M/IMG-20250605-WA0016.jpg" alt="Foto 5" />
-      <img src="https://i.ibb.co/Q3gY5QKV/IMG-20250605-WA0015.jpg" alt="Foto 6" />
-      <img src="https://i.ibb.co/jkn8MPLY/IMG-20250605-WA0013.jpg" alt="Foto 7" />
-      <img src="https://i.ibb.co/9mpysj1p/IMG-20250605-WA0012.jpg" alt="Foto 8" />
+<!-- 🟢 TELA 1 -->
+<div id="screen-start" class="screen active">
+    <div class="card">
+        <h1>Gosth separou um <span class="green">presente especial</span>!</h1>
+        <p>Um momento único feito com carinho para celebrar a nossa jornada</p>
+        <button class="btn" onclick="goTo('screen-story')">Ver Presente</button>
     </div>
-    <button class="arrow right" onclick="moveCarousel(1)">&#10095;</button>
-  </div>
+</div>
 
-  <!-- PLAYER DE MÚSICA DIRETO NO SITE -->
-  <audio controls autoplay loop>
-    <source src="https://raw.githubusercontent.com/WesleyColbeck/romantico/main/Lied%20To.mp3" type="audio/mpeg">
-    Seu navegador não suporta áudio embutido.
-  </audio>
+<!-- 🔴 TELA 2 -->
+<div id="screen-story" class="screen">
+    <div class="content">
 
-  <!-- MENSAGEM ESPECIAL -->
-  <div class="special-message">
-    Que cada momento com você continue sendo o melhor capítulo da nossa história. <br />
-    Eu te amo! 💖
-  </div>
+        <!-- PLAYER -->
+        <div class="block">
+            <img src="SUA_FOTO_1.jpg">
+            <div class="text">
+                <h3>Sonha Comigo</h3>
+                <p>Zé Neto e Cristiano</p>
+            </div>
+        </div>
 
-  <!-- CONTADOR -->
-  <div class="counter">
-    <div class="column">
-      <span id="years"></span> anos
-      <span id="months"></span> meses
-      <span id="days"></span> dias
+        <!-- SOBRE -->
+        <div class="block">
+            <img src="SUA_FOTO_2.jpg">
+            <div class="text">
+                <h3>Gosth e Julia</h3>
+                <p>Juntos desde 0000</p>
+
+                <div class="counter">
+                    <div><strong>4</strong>Anos</div>
+                    <div><strong>9</strong>Meses</div>
+                    <div><strong>15</strong>Dias</div>
+                    <div><strong>4</strong>Horas</div>
+                    <div><strong>9</strong>Minutos</div>
+                    <div><strong>15</strong>Segundos</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MENSAGEM -->
+        <div class="block" style="background:#b71c1c">
+            <div class="text">
+                <h3>Mensagem especial</h3>
+                <p>
+                    Você é o amor da minha vida e a pessoa que me faz querer ser melhor a cada novo dia ❤️
+                </p>
+                <button class="btn-white">Mostrar Mensagem</button>
+            </div>
+        </div>
+
+        <!-- WRAPPED -->
+        <div class="block">
+            <div class="text" style="text-align:center">
+                <h2>Seu Relacionamento Wrapped</h2>
+                <p>Explore o tempo de vocês</p>
+                <br>
+                <button class="btn" onclick="goTo('screen-wrapped')">Ver Wrapped</button>
+            </div>
+        </div>
+
     </div>
-    <div class="column">
-      <span id="hours"></span> horas
-      <span id="minutes"></span> minutos
-      <span id="seconds"></span> segundos
+</div>
+
+<!-- 🟣 TELA 3 -->
+<div id="screen-wrapped" class="screen">
+    <div class="card">
+        <h1><span class="green">Wrapped</span> de Vocês 💚</h1>
+        <p>Aqui vai entrar o conteúdo do Wrapped<br>(vamos montar com as fotos que você mandar)</p>
+        <button class="btn" onclick="goTo('screen-story')">Voltar</button>
     </div>
-  </div>
+</div>
 
-  <script>
-    let index = 0;
-    function moveCarousel(step) {
-      const carousel = document.getElementById("carousel");
-      const images = document.querySelectorAll(".carousel img");
-      index = (index + step + images.length) % images.length;
-      carousel.style.transform = `translateX(-${index * 430}px)`; // Ajustado para largura + margem
-    }
+<script>
+function goTo(id){
+    document.querySelectorAll('.screen').forEach(screen => {
+        screen.classList.remove('active');
+    });
+    document.getElementById(id).classList.add('active');
+}
+</script>
 
-    // Rotação automática a cada 5 segundos
-    setInterval(() => moveCarousel(1), 5000);
-
-    function updateCounter() {
-      const startDate = new Date("2023-11-25T00:00:00");
-      const now = new Date();
-
-      let years = now.getFullYear() - startDate.getFullYear();
-      let months = now.getMonth() - startDate.getMonth();
-      let days = now.getDate() - startDate.getDate();
-
-      if (days < 0) {
-        months--;
-        const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
-        days += prevMonth.getDate();
-      }
-      if (months < 0) {
-        years--;
-        months += 12;
-      }
-
-      const hours = now.getHours();
-      const minutes = now.getMinutes();
-      const seconds = now.getSeconds();
-
-      document.getElementById("years").innerText = years;
-      document.getElementById("months").innerText = months;
-      document.getElementById("days").innerText = days;
-      document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
-      document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
-      document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
-    }
-    setInterval(updateCounter, 1000);
-    updateCounter();
-  </script>
 </body>
 </html>
