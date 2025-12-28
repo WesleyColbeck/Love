@@ -69,6 +69,24 @@ body{
 .block img{ width:100%; }
 .block .text{ padding:20px; }
 
+/* CONTADOR 6x2 */
+.counter{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    text-align:center;
+}
+.counter div{
+    background:#202020;
+    padding:12px;
+    border-radius:12px;
+}
+.counter strong{
+    display:block;
+    font-size:1.2rem;
+    color:#1db954;
+}
+
 /* PLAYER */
 .spotify-player{
     display:flex;
@@ -209,16 +227,16 @@ body{
         <div class="block small">
             <img src="SUA_FOTO_2.jpg">
 
-    <!-- CONTADOR ABAIXO DA FOTO -->
-    <div class="counter" id="main-counter" style="margin:20px">
-        <div><strong id="c-years">0</strong>Anos</div>
-        <div><strong id="c-months">0</strong>Meses</div>
-        <div><strong id="c-days">0</strong>Dias</div>
-        <div><strong id="c-hours">0</strong>Horas</div>
-        <div><strong id="c-mins">0</strong>Minutos</div>
-        <div><strong id="c-secs">0</strong>Segundos</div>
-    </div>
-            
+            <!-- CONTADOR 6x2 -->
+            <div class="counter" id="main-counter" style="margin:20px">
+                <div><strong id="c-years">0</strong>Anos</div>
+                <div><strong id="c-months">0</strong>Meses</div>
+                <div><strong id="c-days">0</strong>Dias</div>
+                <div><strong id="c-hours">0</strong>Horas</div>
+                <div><strong id="c-mins">0</strong>Minutos</div>
+                <div><strong id="c-secs">0</strong>Segundos</div>
+            </div>
+
             <div class="text">
                 <h3>Gosth e Julia</h3>
                 <p>Nossa história começou...</p>
@@ -241,12 +259,11 @@ body{
 
         <h1 style="text-align:center">Nossa <span class="green">Jornada</span></h1>
 
-        <!-- TIMELINE -->
         <div class="timeline-container">
             <div class="timeline-line"></div>
 
             <div class="timeline-item">
-                <div class="polaroid">
+                    <div class="polaroid">
                     <img src="FOTO_BEIJO.jpg">
                     <p>Nos dois</p>
                 </div>
@@ -290,34 +307,12 @@ body{
                 </div>
             </div>
         </div>
-
-        <!-- LETRAS -->
         <div class="block" style="padding:25px; text-align:center">
             <h3>O que mais amo em você?</h3>
 
             <div class="wordle-grid">
                 <div class="tile correct">S</div><div class="tile correct">O</div><div class="tile correct">R</div><div class="tile correct">R</div><div class="tile correct">I</div><div class="tile correct">S</div><div class="tile correct">O</div>
             </div>
-
-            <div class="wordle-grid">
-                <div class="tile correct">O</div><div class="tile correct">L</div><div class="tile correct">H</div><div class="tile correct">O</div><div class="tile correct">S</div>
-            </div>
-
-            <div class="wordle-grid">
-                <div class="tile correct">C</div><div class="tile correct">A</div><div class="tile correct">B</div><div class="tile correct">E</div><div class="tile correct">L</div><div class="tile correct">O</div>
-            </div>
-
-            <div class="wordle-grid">
-                <div class="tile correct">P</div><div class="tile correct">R</div><div class="tile correct">I</div><div class="tile correct">N</div><div class="tile correct">C</div><div class="tile correct">E</div><div class="tile correct">S</div><div class="tile correct">A</div>
-            </div>
-
-            <div class="wordle-grid">
-                <div class="tile correct">E</div><div class="tile correct">U</div><div class="tile"></div><div class="tile correct">T</div><div class="tile correct">E</div><div class="tile"></div><div class="tile correct">A</div><div class="tile correct">M</div><div class="tile correct">O</div>
-            </div>
-
-            <p style="margin-top:20px; color:#1db954; font-weight:bold">
-                Todas as respostas sempre vão ser você 💚
-            </p>
 
             <button class="btn" onclick="goTo('screen-story')">Voltar</button>
         </div>
@@ -331,6 +326,29 @@ function goTo(id){
     document.getElementById(id).classList.add('active');
 }
 
+/* ===============================
+   CONFIGURAÇÃO DA DATA (MUDE AQUI)
+   =============================== */
+const DATA_INICIO_RELACIONAMENTO = "2020-03-12"; // <-- MUDE A DATA AQUI
+
+const dataInicio = new Date(DATA_INICIO_RELACIONAMENTO + "T00:00:00");
+
+function atualizarContador(){
+    const agora = new Date();
+    const diff = agora - dataInicio;
+
+    document.getElementById("c-years").innerText = Math.floor(diff / (1000*60*60*24*365.25));
+    document.getElementById("c-months").innerText = Math.floor(diff / (1000*60*60*24*30.44)) % 12;
+    document.getElementById("c-days").innerText = Math.floor(diff / (1000*60*60*24)) % 30;
+    document.getElementById("c-hours").innerText = Math.floor(diff / (1000*60*60)) % 24;
+    document.getElementById("c-mins").innerText = Math.floor(diff / (1000*60)) % 60;
+    document.getElementById("c-secs").innerText = Math.floor(diff / 1000) % 60;
+}
+
+setInterval(atualizarContador,1000);
+atualizarContador();
+
+/* PLAYER */
 const audio=document.getElementById("audio");
 const playBtn=document.getElementById("playBtn");
 const progress=document.getElementById("progress");
@@ -354,10 +372,3 @@ function setProgress(e){
 
 </body>
 </html>
-
-
-
-
-
-
-
