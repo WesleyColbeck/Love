@@ -16,7 +16,6 @@
 body{
     background:#121212;
     color:#fff;
-    overflow-x: hidden;
 }
 
 .screen{
@@ -26,7 +25,6 @@ body{
     justify-content:center;
     padding:20px;
 }
-
 .screen.active{ display:flex; }
 
 .card{
@@ -38,8 +36,6 @@ body{
     text-align:center;
 }
 
-h1{ font-size:1.8rem; margin-bottom:15px; }
-p{ opacity:.85; margin-bottom:15px; }
 .green{ color:#1db954; }
 
 .btn{
@@ -50,7 +46,6 @@ p{ opacity:.85; margin-bottom:15px; }
     border-radius:30px;
     font-weight:bold;
     cursor:pointer;
-    font-size:1rem;
 }
 
 .content{
@@ -71,10 +66,10 @@ p{ opacity:.85; margin-bottom:15px; }
     margin:auto;
 }
 
-.block img{ width:100%; display:block; }
+.block img{ width:100%; }
 .block .text{ padding:20px; }
 
-/* PLAYER SPOTIFY */
+/* PLAYER */
 .spotify-player{
     display:flex;
     align-items:center;
@@ -85,7 +80,6 @@ p{ opacity:.85; margin-bottom:15px; }
 .spotify-player button{
     background:#1db954;
     border:none;
-    color:#000;
     width:42px;
     height:42px;
     border-radius:50%;
@@ -99,7 +93,6 @@ p{ opacity:.85; margin-bottom:15px; }
     background:#404040;
     border-radius:10px;
     cursor:pointer;
-    overflow:hidden;
 }
 
 .progress{
@@ -108,28 +101,51 @@ p{ opacity:.85; margin-bottom:15px; }
     background:#1db954;
 }
 
-.spotify-player span{
-    font-size:0.75rem;
-    opacity:.8;
+/* TIMELINE WRAPPED */
+.timeline-container{
+    position:relative;
+    padding:40px 0;
 }
+.timeline-line{
+    position:absolute;
+    left:50%;
+    width:2px;
+    height:100%;
+    background:rgba(255,255,255,.1);
+}
+.timeline-item{
+    display:flex;
+    align-items:center;
+    margin-bottom:60px;
+}
+.timeline-item.right{ flex-direction:row-reverse; }
 
-.counter{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
+.polaroid{
+    background:#fff;
+    padding:8px 8px 20px;
+    width:150px;
+    box-shadow:0 10px 20px rgba(0,0,0,.3);
+}
+.polaroid img{
+    width:100%;
+    height:130px;
+    object-fit:cover;
+}
+.polaroid p{
+    color:#000;
+    font-size:.75rem;
+    font-weight:bold;
     text-align:center;
 }
 
-.counter div{
-    background:#202020;
-    padding:15px;
-    border-radius:12px;
+.timeline-text{
+    width:50%;
+    padding:0 15px;
 }
 
-.counter strong{
-    font-size:1.2rem;
-    display:block;
-    color:#1db954;
+.date-tag{
+    color:#ff4081;
+    font-weight:bold;
 }
 
 /* WORDLE */
@@ -139,7 +155,6 @@ p{ opacity:.85; margin-bottom:15px; }
     gap:5px;
     margin-top:15px;
 }
-
 .tile{
     width:35px;
     height:35px;
@@ -148,9 +163,7 @@ p{ opacity:.85; margin-bottom:15px; }
     align-items:center;
     justify-content:center;
     font-weight:bold;
-    background:#121213;
 }
-
 .tile.correct{
     background:#538d4e;
     border-color:#538d4e;
@@ -160,63 +173,50 @@ p{ opacity:.85; margin-bottom:15px; }
 
 <body>
 
+<!-- START -->
 <div id="screen-start" class="screen active">
     <div class="card">
         <h1>Gosth separou um <span class="green">presente especial</span>!</h1>
-        <p>Um momento único feito com carinho para celebrar a nossa jornada</p>
+        <p>Um momento único feito com carinho</p>
         <button class="btn" onclick="goTo('screen-story')">Ver Presente</button>
     </div>
 </div>
 
+<!-- STORY -->
 <div id="screen-story" class="screen">
     <div class="content">
 
-        <!-- PRIMEIRA FOTO + PLAYER -->
         <div class="block">
             <img src="SUA_FOTO_1.jpg">
-
             <div class="text">
                 <h3>Sonha Comigo</h3>
                 <p>Zé Neto e Cristiano</p>
 
                 <div class="spotify-player">
                     <button id="playBtn">▶</button>
-
                     <div class="progress-container" onclick="setProgress(event)">
                         <div class="progress" id="progress"></div>
                     </div>
-
                     <span id="time">0:00</span>
                 </div>
 
                 <audio id="audio">
-                    <source src="SUA_MUSICA.mp3" type="audio/mpeg">
+                    <source src="SUA_MUSICA.mp3">
                 </audio>
             </div>
         </div>
 
-        <!-- SEGUNDA FOTO MENOR -->
         <div class="block small">
             <img src="SUA_FOTO_2.jpg">
             <div class="text">
                 <h3>Gosth e Julia</h3>
                 <p>Nossa história começou...</p>
-
-                <div class="counter">
-                    <div><strong id="c-years">0</strong>Anos</div>
-                    <div><strong id="c-months">0</strong>Meses</div>
-                    <div><strong id="c-days">0</strong>Dias</div>
-                    <div><strong id="c-hours">0</strong>Horas</div>
-                    <div><strong id="c-mins">0</strong>Minutos</div>
-                    <div><strong id="c-secs">0</strong>Segundos</div>
-                </div>
             </div>
         </div>
 
         <div class="block">
             <div class="text" style="text-align:center">
                 <h2>Seu Relacionamento Wrapped</h2>
-                <p>Explore o tempo de vocês</p>
                 <button class="btn" onclick="goTo('screen-wrapped')">Ver Wrapped</button>
             </div>
         </div>
@@ -224,59 +224,61 @@ p{ opacity:.85; margin-bottom:15px; }
     </div>
 </div>
 
+<!-- WRAPPED -->
 <div id="screen-wrapped" class="screen">
     <div class="content">
-        <h1 style="text-align:center">O que mais amo em você?</h1>
 
-        <div class="block" style="text-align:center; padding:25px;">
+        <h1 style="text-align:center">Nossa <span class="green">Jornada</span></h1>
+
+        <!-- TIMELINE -->
+        <div class="timeline-container">
+            <div class="timeline-line"></div>
+
+            <div class="timeline-item">
+                <div class="polaroid">
+                    <img src="FOTO_BEIJO.jpg">
+                    <p>Eu te amo 🤍</p>
+                </div>
+                <div class="timeline-text">
+                    <span class="date-tag">Janeiro 2023</span>
+                    <p>Nosso primeiro beijo</p>
+                </div>
+            </div>
+
+            <div class="timeline-item right">
+                <div class="timeline-text">
+                    <span class="date-tag">12/03/2024</span>
+                    <p>Nosso dia 🤍</p>
+                </div>
+                <div class="polaroid">
+                    <img src="FOTO_PRESENTE.jpg">
+                    <p>Aniversário 🥳</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- LETRAS -->
+        <div class="block" style="padding:25px; text-align:center">
+            <h3>O que mais amo em você?</h3>
+
             <div class="wordle-grid">
-                <div class="tile correct">S</div>
-                <div class="tile correct">O</div>
-                <div class="tile correct">R</div>
-                <div class="tile correct">R</div>
-                <div class="tile correct">I</div>
-                <div class="tile correct">S</div>
-                <div class="tile correct">O</div>
+                <div class="tile correct">S</div><div class="tile correct">O</div><div class="tile correct">R</div><div class="tile correct">R</div><div class="tile correct">I</div><div class="tile correct">S</div><div class="tile correct">O</div>
             </div>
 
             <div class="wordle-grid">
-                <div class="tile correct">O</div>
-                <div class="tile correct">L</div>
-                <div class="tile correct">H</div>
-                <div class="tile correct">O</div>
-                <div class="tile correct">S</div>
+                <div class="tile correct">O</div><div class="tile correct">L</div><div class="tile correct">H</div><div class="tile correct">O</div><div class="tile correct">S</div>
             </div>
 
             <div class="wordle-grid">
-                <div class="tile correct">C</div>
-                <div class="tile correct">A</div>
-                <div class="tile correct">B</div>
-                <div class="tile correct">E</div>
-                <div class="tile correct">L</div>
-                <div class="tile correct">O</div>
+                <div class="tile correct">C</div><div class="tile correct">A</div><div class="tile correct">B</div><div class="tile correct">E</div><div class="tile correct">L</div><div class="tile correct">O</div>
             </div>
 
             <div class="wordle-grid">
-                <div class="tile correct">P</div>
-                <div class="tile correct">R</div>
-                <div class="tile correct">I</div>
-                <div class="tile correct">N</div>
-                <div class="tile correct">C</div>
-                <div class="tile correct">E</div>
-                <div class="tile correct">S</div>
-                <div class="tile correct">A</div>
+                <div class="tile correct">P</div><div class="tile correct">R</div><div class="tile correct">I</div><div class="tile correct">N</div><div class="tile correct">C</div><div class="tile correct">E</div><div class="tile correct">S</div><div class="tile correct">A</div>
             </div>
 
             <div class="wordle-grid">
-                <div class="tile correct">E</div>
-                <div class="tile correct">U</div>
-                <div class="tile"></div>
-                <div class="tile correct">T</div>
-                <div class="tile correct">E</div>
-                <div class="tile"></div>
-                <div class="tile correct">A</div>
-                <div class="tile correct">M</div>
-                <div class="tile correct">O</div>
+                <div class="tile correct">E</div><div class="tile correct">U</div><div class="tile"></div><div class="tile correct">T</div><div class="tile correct">E</div><div class="tile"></div><div class="tile correct">A</div><div class="tile correct">M</div><div class="tile correct">O</div>
             </div>
 
             <p style="margin-top:20px; color:#1db954; font-weight:bold">
@@ -285,6 +287,7 @@ p{ opacity:.85; margin-bottom:15px; }
 
             <button class="btn" onclick="goTo('screen-story')">Voltar</button>
         </div>
+
     </div>
 </div>
 
@@ -292,49 +295,26 @@ p{ opacity:.85; margin-bottom:15px; }
 function goTo(id){
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
-    window.scrollTo(0,0);
 }
 
-/* CONTADOR */
-const dataInicio = new Date("2020-03-12T00:00:00");
-function atualizarContador(){
-    const agora = new Date();
-    const diff = agora - dataInicio;
+const audio=document.getElementById("audio");
+const playBtn=document.getElementById("playBtn");
+const progress=document.getElementById("progress");
+const time=document.getElementById("time");
 
-    document.getElementById('c-years').innerText = Math.floor(diff / (1000*60*60*24*365.25));
-    document.getElementById('c-months').innerText = Math.floor(diff / (1000*60*60*24*30.44)) % 12;
-    document.getElementById('c-days').innerText = Math.floor(diff / (1000*60*60*24)) % 30;
-    document.getElementById('c-hours').innerText = Math.floor(diff / (1000*60*60)) % 24;
-    document.getElementById('c-mins').innerText = Math.floor(diff / (1000*60)) % 60;
-    document.getElementById('c-secs').innerText = Math.floor(diff / 1000) % 60;
-}
-setInterval(atualizarContador,1000);
-atualizarContador();
-
-/* PLAYER */
-const audio = document.getElementById("audio");
-const playBtn = document.getElementById("playBtn");
-const progress = document.getElementById("progress");
-const time = document.getElementById("time");
-
-playBtn.onclick = ()=>{
-    if(audio.paused){
-        audio.play();
-        playBtn.innerHTML="❚❚";
-    }else{
-        audio.pause();
-        playBtn.innerHTML="▶";
-    }
+playBtn.onclick=()=>{
+    if(audio.paused){audio.play();playBtn.innerHTML="❚❚";}
+    else{audio.pause();playBtn.innerHTML="▶";}
 };
 
-audio.ontimeupdate = ()=>{
-    progress.style.width = (audio.currentTime/audio.duration)*100+"%";
-    time.innerText = Math.floor(audio.currentTime/60)+":"+
+audio.ontimeupdate=()=>{
+    progress.style.width=(audio.currentTime/audio.duration)*100+"%";
+    time.innerText=Math.floor(audio.currentTime/60)+":"+
         Math.floor(audio.currentTime%60).toString().padStart(2,"0");
 };
 
 function setProgress(e){
-    audio.currentTime = (e.offsetX / e.currentTarget.clientWidth) * audio.duration;
+    audio.currentTime=(e.offsetX/e.currentTarget.clientWidth)*audio.duration;
 }
 </script>
 
